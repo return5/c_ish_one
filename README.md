@@ -68,6 +68,6 @@ Simple gmae with Rogue like inspired elements written in C using ASCII graphics 
 ============== Requirments ==============   
   - Linux system 
   - GCC 
-  - ncurses library (uses '-lncurses' flag when compiling) 
+  - ncurses library https://invisible-island.net/ncurses/ (make sure to use the flag '-lncurses' when compiling with gcc) 
 
     
