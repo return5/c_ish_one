@@ -22,7 +22,7 @@ Character *getType2(const char *const type);
 Character *getType(const char *const type);
 char getTile2(void);
 char getTile(void); 
-void setUPtile(char (*tileGet)());
+void setUPtile(char (*tileGet)(void));
 void seedRandomNumber(void);
 void setUpPiece(const int i, const int j);
 void setUpMap(void);
@@ -416,7 +416,7 @@ char getTile(void) {
 		}
 }
 
-void setUPtile(char (*tileGet)()) {
+void setUPtile(char (*tileGet)(void)) {
 	int i,j;
 	int right = WIDTH - 1;
 	int upper = HEIGHT - 1;
