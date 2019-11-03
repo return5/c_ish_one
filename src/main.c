@@ -600,10 +600,7 @@ void BossFight(void) {
 void killOrKilled(void) {
 	enemy_killed += continue_game;   //if enemy is killed, add one to count
 	wclear(prompt_win);
-	char str1 [50];
-	char *str = (continue_game) ? "you defeated %s, good job!." : "%s killed you. game over!";
-	sprintf(str1,str,previous->character->name);
-	wprintw(prompt_win,"%s",str1);
+	(continue_game) ? wprintw(prompt_win,"you defeated %s, good job!.",previous->character->name) : wprintw(prompt_win,"%s killed you. game over!",previous->character->name);
 	wrefresh(prompt_win);
 	getch();
 }

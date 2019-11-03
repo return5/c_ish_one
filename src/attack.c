@@ -68,18 +68,19 @@ static int getRandInt(const int limit) {
 }
 
 void bossSpecial(void) {		
-	char *const str = malloc(160);
-	if(getRandInt(10) > PLAYER->chance_to_dodge && getRandInt(10) >= ENEMY->crit_chance) {		
+	if(getRandInt(10) > PLAYER->chance_to_dodge && getRandInt(10) >= ENEMY->crit_chance) {
+		char *const str = malloc(160);		
 		sprintf(str,ENEMY->special_attack,ENEMY->attack);
 		PLAYER->defense -= 2;
 		PLAYER->health -= ENEMY->attack;
 		PLAYER->turn = 2;
 		ENEMY->special_count = 1;
+		wprintw(prompt_win,"%s",str);
+		free(str);
 	}
 	else {
-		sprintf(str,ENEMY->special_attack_miss);
+		wprintw(prompt_win,"%s",ENEMY->special_attack_miss);
 	}
-	wprintw(prompt_win,"%s",str);
 }
 
 void makeBossStrings(void) {
@@ -223,9 +224,10 @@ void criticalHit(Character *const attacker,Character *const enemy, const char *c
 	const int damage = (attacker->attack - enemy->defense > 0) ? (attacker->attack - enemy->defense) + 2 : 3;
 	enemy->health -= damage;
 	if(checkIfHealthIsHalf(enemy) == 0) {
-		char str1[150];
+		char *str1 = malloc(sizeof(char) * sizeof(str) + 5);
 		sprintf(str1,str,damage);
 		wprintw(prompt_win,"%s\n",str1);
+		free(str1);
 	}
 }
 
@@ -233,9 +235,10 @@ void regularHit(Character *const attacker,Character *const defender, const char 
 	const int damage = (attacker->attack - defender->defense > 0) ? attacker->attack - defender->defense : 1;
 	defender->health -= damage;
 	if(defender->type == 11 || checkIfHealthIsHalf(defender) == 0) {
-		char str1[150];
+		char *str1 = malloc(sizeof(char) * sizeof(str) + 5);
 		sprintf(str1,str,damage);
 		wprintw(prompt_win,"%s\n",str1);
+		free(str1);
 	}
 }
 
@@ -279,9 +282,7 @@ void attackEnemySelection(Character *const attacker,Character *const defender) {
 }
 
 void raiseDefense(Character *const attacker) {
-	char str1[150];
-	sprintf(str1,attacker->raise_defense);
-	wprintw(prompt_win,"%s\n",str1);
+	wprintw(prompt_win,"%s\n",attacker->raise_defense);
 	attacker->defense += 2;
 	attacker->defense_up = 1;
 	refreshPrompt();
@@ -325,14 +326,13 @@ char *powerAttackBoss(void) {
 }
 
 void throwOpponent(Character *const attacker,Character *const defender) {
-	char str1[210];
 	switch(defender->type) {
 		case 4://thief
 		case 5://archer
 		case 11://monster
 		case 12://delmer
 			//throws dont work on these guys
-			sprintf(str1,defender->special_fail);
+			wprintw(prompt_win,"%s\n",defender->special_fail);
 			attacker->health -= 2;
 			break;
 		case 13://enraged halflings
@@ -342,35 +342,34 @@ void throwOpponent(Character *const attacker,Character *const defender) {
 		case 17://enraged delmer
 		case 18://enraged delmer
 				// throws dont work on enraged enemies
-				sprintf(str1,defender->special_fail);
+				wprintw(prompt_win,"%s\n",defender->special_fail);
 				attacker->health -= 4;
 			break;
-		case 19: sprintf(str1,throwBoss()); //special throw against boss
+		case 19: 
+			wprintw(prompt_win,"%s\n",throwBoss()); //special throw against boss
 			break;
 		default: //against any other enemy
 			if(getRandInt(10) > defender->chance_to_dodge) {
-				sprintf(str1,attacker->special_attack);
+				wprintw(prompt_win,"%s\n",attacker->special_attack);
 				defender->turn += 2;
 				defender->health -= 2;
 				attacker->special_count += 1;
 			}
 			else {
-				sprintf(str1,attacker->special_attack_miss);
+			wprintw(prompt_win,"%s\n",attacker->special_attack_miss);
 			}
 			break;
 	}
-	wprintw(prompt_win,"%s\n",str1);
 }
 
 void defenseDown(Character *const attacker,Character *const defender) {
-	char str1[160];
 	switch(defender->type) {
 		case 2://skeleton
 		case 6://spearman
 		case 8://mage
 		case 9://scrugg
 			//spell doesnt work against these enemy types
-			sprintf(str1,defender->special_fail);
+			wprintw(prompt_win,"%s\n",defender->special_fail);
 			attacker->health -= 2;
 			break;
 		case 13://enraged halfling
@@ -380,14 +379,14 @@ void defenseDown(Character *const attacker,Character *const defender) {
 		case 17://enraged delmer
 		case 18://enraged delmer
 			//spells dont work on enraged monsters
-			sprintf(str1,defender->special_fail);
+			wprintw(prompt_win,"%s\n",defender->special_fail);
 			attacker->health -= 4;
 			break;
-		case 19: sprintf(str1,defensedownBoss()); //defense down against boss
+		case 19: wprintw(prompt_win,"%s\n",defensedownBoss()); //defense down against boss
 			break;
 		default: // against any other type of enemy.
 			if(getRandInt(10) > defender->chance_to_dodge) {
-				sprintf(str1,attacker->special_attack);
+				wprintw(prompt_win,"%s\n",attacker->special_attack);
 				defender->defense -= 3;
 				if(defender->defense < 0) {
 					defender->defense = 0;
@@ -395,22 +394,20 @@ void defenseDown(Character *const attacker,Character *const defender) {
 				attacker->special_count += 1;
 			}
 			else {
-				sprintf(str1,attacker->special_attack_miss);
+				wprintw(prompt_win,"%s\n",attacker->special_attack_miss);
 			}
 			break;
 	}
-	wprintw(prompt_win,"%s\n",str1);
 }
 
 void powerAttack(Character *const attacker,Character *const defender) {
-	char str1[160];
 	switch(defender->type) {
 		case 1://swordsman
 		case 3://slinger
 		case 7://four legged beast
 		case 10://halfling
 			//power attacks dont work against these types
-			sprintf(str1,defender->special_fail);
+			wprintw(prompt_win,"%s\n",defender->special_fail);
 			attacker->health -= 2;
 			break;
 		case 13://enraged halfling
@@ -420,24 +417,24 @@ void powerAttack(Character *const attacker,Character *const defender) {
 		case 17://enraged delmer
 		case 18://enraged delmer
 			//cant use special attack against enraged enemy
-			sprintf(str1,defender->special_fail);
+			wprintw(prompt_win,"%s\n",defender->special_fail);
 			attacker->health -= 4;
 			break;
-		case 19: sprintf(str1,powerAttackBoss()); //power attack against boss
+		case 19: 
+			wprintw(prompt_win,"%s\n",powerAttackBoss()); //power attack against boss
 			break;
 		default: //against any other enemy
 			if(getRandInt(10) > defender->chance_to_dodge) {
 				const int damage = (attacker->attack + 4) - defender->defense;
-				sprintf(str1,attacker->special_attack,damage);
+				wprintw(prompt_win,"%s\n",attacker->special_attack);
 				defender->health -= damage;
 				attacker->special_count += 1;
 			}
 			else{
-				sprintf(str1,attacker->special_attack_miss);
+				wprintw(prompt_win,"%s\n",attacker->special_attack_miss);
 			}
 			break;
 	}
-	wprintw(prompt_win,"%s\n",str1);
 }
 
 void playerSpecial(void) {
