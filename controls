@@ -48,4 +48,11 @@ game is played on a randomly generated 2D map.
 		-use special. player is granted one of three special attacks when game starts.  each one works well on some enemies and doesnt work well on others. 
 		-run away.  you run away from the fight
 		-eat food. if you have food in your inventory you may eat some to restore health points.
-
+		
+ == Tiles and icons== 
+  -the tiles: '~' ':' '^' '/'  and blank space are world map tiles.    
+  -yellow '&' is the location of a well.  
+  -red 'x' is the location of a camp which you have discovered    
+  -red 'e' marks location of an enemy which you have run away from      
+  -magenta 's' is the location of a shrine which you have discovered   
+  -cyan '@' marks player character 
