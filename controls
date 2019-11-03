@@ -1,0 +1,58 @@
+============== game info ===========================
+game is played on a randomly generated 2D map. 
+
+== objective ==
+	- to defeat the final boss
+
+== how to play ==
+	- player moves around the map gaining points. when player has enough points a teleportation device appears on map. when player enters teleport, it transports them to next level.
+	- player needs to advance through two levels before they encounter the final boss.
+
+== how to get points ==
+	- player gets points in three ways
+		- killing enemeis
+		- finding treasure
+		- finding a hidden shrine
+
+== locations ==
+	- during game play the play may find hidden locations such as shrines and enemy camps
+	- camps may have an enemy nearby who will attack you, be careful
+	- camps may have either food or treasure or maybe both
+	- shrines grant points and 1 of three possible bonuses
+		-increase health
+		-increase damage
+		-increase defense
+	- each shrine may only be used once.
+	- players may notice locations on the map denoted by a '&'
+		- players can visit a well to drink water. drinking water restores health.
+
+== detecting things ==
+	- during game player, player will notice a prompt which tells them that they detect something nearby
+	- when player sees this prompt it means that their is either an enemy or hidden location nearby.
+
+== food ==
+	-when a player explores a camp they may find food. they are given three options
+		-eat food now. this restores some halth
+		-take it with them. this give them the option to eat food during fight to restore health.(note: player has limited inventory.)
+		-leave food. food will remain at camp and can then later be picked up by player.  
+
+== controls ==
+	- use arrow keys or numpad arrows to move player
+	- when given prompt, enter number of your choice
+	- press 'q' to quit game
+
+== combat ==
+	- when encountering an enemy you are given a few options
+		-fight. you swing your sword an attempt to hit that enemy
+		-raise edefense. raises defense value by 2. can only be done once per fight
+		-use special. player is granted one of three special attacks when game starts.  each one works well on some enemies and doesnt work well on others. 
+		-run away.  you run away from the fight
+		-eat food. if you have food in your inventory you may eat some to restore health points.
+		
+ == Tiles and icons== 
+  -the tiles: '~' ':' '^' '/'  and blank space are world map tiles.    
+  -yellow '&' is the location of a well.  
+  -red 'x' is the location of a camp which you have discovered    
+  -red 'e' marks location of an enemy which you have run away from      
+  -magenta 's' is the location of a shrine which you have discovered   
+  -cyan '@' marks player character 
