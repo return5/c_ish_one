@@ -11,7 +11,7 @@ Simple game with Rogue like inspired elements written in C using ASCII graphics 
     
 - # Requirments  
   - Linux system 
-  - GCC 
+  - GCC or clang
   - ncurses library https://invisible-island.net/ncurses/
 
     
