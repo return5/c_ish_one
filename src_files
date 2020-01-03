@@ -1,6 +1,0 @@
-./src/main.c
-./src/attack.c
-./src/initgame.c
-./src/makemap.c
-./src/printenemy.c
-./src/printobjects.c
