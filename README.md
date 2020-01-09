@@ -8,7 +8,10 @@ Simple game with Rogue like inspired elements written in C using ASCII graphics 
 - # game info and controls
   - see file 'controls' for controls and information about the game
 - # screenshots
-      ![screenshot1](/screenshots/Screenshot_1.png)
+ ![screenshot1](/screenshots/Screenshot_1.png)
+ ![screenshot1](/screenshots/Screenshot_2.png)
+ ![screenshot1](/screenshots/Screenshot_3.png)
+ ![screenshot1](/screenshots/Screenshot_4.png)
       
 - # Requirments  
   - Linux system 
