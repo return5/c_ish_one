@@ -33,6 +33,6 @@ extern int half_x,half_y;
 extern tile *player;
 extern tile *previous;
 extern tile *map[HEIGHT][WIDTH];
-WINDOW *game_border; 		  	   //window for game border	
-WINDOW *game_win;			  	  //window for game map
-WINDOW *prompt_win;	   	     	 //window for text prompts
+extern WINDOW *game_border; 		  	   //window for game border	
+extern WINDOW *game_win;			  	  //window for game map
+extern WINDOW *prompt_win;	   	     	 //window for text prompts
