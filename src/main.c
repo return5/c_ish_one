@@ -11,53 +11,48 @@
 		- created by: return5
 		- License: MIT License
 
-======================================================================================================*/
-
-
+*/
 
 /*========================================== prototypes ===============================================*/
 
-void runGameLoop(void);
-void printMap(void);
-void getPlayerMovement(const int key);
-void movePlayer (const int x, const int y);
-void setColorAttrOff(void);
-void setColorAttrOn(const char tile);
-void printPrompt(void);
-void makeGameWin(void);
-void makePromptWin(void);
-void checkForThings(void);
-void checkForThingsFront(int *const detect_thing);
-void checkForThingsBelow(int *const detect_thing);
-void checkForThingsBehind(int *const detect_thing);
-void checkForThingsAbove(int *const detect_thing);
-void checkTileForEnemyAndObj(void);
-void foundEnemy(void);
-void foundObj(void);
-void getFood(void);
-void getLoot(void);
-void foundWell(void);
-void quitGame(void);
-void cleanUp(void);	
-void printObj(void);
-int checkObjEnemy(void);
-void checkObjThings(void);
-void checkScore(void);
-void foundShrine(void);
-void drinkFromWell(void);
-void printShrineAndPlayer(void);
-void getShrineInput(void);
-void increasePlayerAttack(void);
-void increasePlayerDefense(void);
-void increasePlayerHealth(void);
-void clearTile(tile *const t);
-void makeTeleporter(void);
-void checkTeleport(void);
-void teleportPlayer(void);
-void BossFight(void);
-void endOfGame(void);
-void killOrKilled(void);
-void printTeleportPrompt(void);
+static void endOfGame(void); 
+static void quitGame(void); 
+static void killOrKilled(void); 
+static void BossFight(void); 
+static void foundShrine(void); 
+static void getShrineInput(void); 
+static void increasePlayerHealth(void); 
+static void increasePlayerDefense(void); 
+static void increasePlayerAttack(void); 
+static void printShrineAndPlayer(void); 
+static void drinkFromWell(void); 
+static void foundWell(void); 
+static void checkObjThings(void); 
+static void getLoot(void); 
+static void getFood(void); 
+static void foundObj(void); 
+static void foundEnemy(void); 
+static void checkTileForEnemyAndObj(void); 
+static void checkForThingsBelow(int *const detect_thing); 
+static void checkForThingsAbove(int *const detect_thing); 
+static void checkForThingsBehind(int *const detect_thing); 
+static void checkForThingsFront(int *const detect_thing); 
+static void checkForThings(void); 
+static void movePlayer (const int  x, const int  y); 
+static void getPlayerMovement(const int key); 
+static void setColorAttrOn(const char tile); 
+static void setColorAttrOff(void); 
+static void printMap(void); 
+static void printPrompt(void); 
+static void cleanUp(void); 
+static void runGameLoop(void); 
+static void checkScore(void); 
+static void checkTeleport(void); 
+static void makeTeleporter(void); 
+static void printTeleportPrompt(void); 
+static void clearTile(tile *const t); 
+static void teleportPlayer(void); 
+static int checkObjEnemy(void);
 
 /*========================================== define, global vars, and typedefs ===============================================*/
 
@@ -88,7 +83,7 @@ int main(void) {
 }
 
 
-void teleportPlayer(void) {
+static void teleportPlayer(void) {
 	if(player->x == (HEIGHT/2) && player->y == (WIDTH/2) ) {
 		teleport = 0;
 		if(boss < 1) {
@@ -113,7 +108,7 @@ void teleportPlayer(void) {
 }
 
 //clears tile of everything.
-void clearTile(tile *const t) {
+static void clearTile(tile *const t) {
 	t->tile_temp = t->tile_set;
 	t->character = NULL;
 	t->obj = NULL;
@@ -123,14 +118,14 @@ void clearTile(tile *const t) {
 	t->shrine_blessing = 0;
 }
 
-void printTeleportPrompt(void) {
+static void printTeleportPrompt(void) {
 	wclear(prompt_win);
 	wprintw(prompt_win,"a teleportation device appears in the middle of the map.\nproceed towards it to advanced to next level.");
 	wrefresh(prompt_win);
 	getch();
 }
 
-void makeTeleporter(void) {
+static void makeTeleporter(void) {
 	teleport = 1;
 	map[(HEIGHT/2)][(WIDTH/2)]->tile_set = 'O';
 	map[(HEIGHT/2)-1][(WIDTH/2)]->tile_set = '|';
@@ -149,7 +144,7 @@ void makeTeleporter(void) {
 	printTeleportPrompt();
 }
 
-void checkTeleport(void) {
+static void checkTeleport(void) {
 	if(!teleport) {
 		//if player isnt in location where teleporter will be
 		if(player->x != (WIDTH/2) || player->x != (WIDTH/2) + 1 || player->x != (WIDTH/2) - 1) {
@@ -161,13 +156,13 @@ void checkTeleport(void) {
 	}
 }
 
-void checkScore(void) {
+static void checkScore(void) {
 	if (score >= score_limit) {
 		checkTeleport();
 	}
 }
 
-void runGameLoop(void) {
+static void runGameLoop(void) {
 	while(continue_game) {
 		checkTileForEnemyAndObj();
 		checkForThings();
@@ -184,19 +179,19 @@ void runGameLoop(void) {
 	cleanUp();
 }
 
-void cleanUp(void) {
+static void cleanUp(void) {
 	freeMap();  //makemap.c
 	endwin();
 }
 
 
-void printPrompt(void) {
+static void printPrompt(void) {
 	mvwprintw(prompt_win,1, half_x-9, "your location is %d %d\n", player->x,player->y);
 	mvwprintw(prompt_win,2, half_x-9, "your score is %d. health is %d.", score, PLAYER->health);
 	wrefresh(prompt_win);
 }
 
-void printMap(void){
+static void printMap(void){
 	int i,j;
 	wclear(game_win);
 	fruit(i = 0; i < HEIGHT; i++) {
@@ -209,14 +204,14 @@ void printMap(void){
 	wrefresh(game_win);
 }
 
-void setColorAttrOff(void) {
+static void setColorAttrOff(void) {
 	int i; 
 	fruit(i = 0; i < NUMBER_COLORS; i++) {
 		wattroff(game_win,COLOR_PAIR(i));
 	}
 }
 
-void setColorAttrOn(const char tile) {
+static void setColorAttrOn(const char tile) {
 	switch (tile) {
 		case ' ': wattron(game_win,BLACK);
 			break;
@@ -247,7 +242,7 @@ void setColorAttrOn(const char tile) {
 	}
 }
 
-void getPlayerMovement(const int key) {
+static void getPlayerMovement(const int key) {
 	int x,y;
 	x = player->x;
 	y = player->y;
@@ -278,7 +273,7 @@ void getPlayerMovement(const int key) {
 	movePlayer(x,y);
 }
 
-void movePlayer (const int  x, const int  y) {
+static void movePlayer (const int  x, const int  y) {
 	if (x < 0 || x >= HEIGHT) {
 		mvwprintw(prompt_win,0, half_x-15,"cant go that way, already on edge of map.");
 		wrefresh(prompt_win);
@@ -298,7 +293,7 @@ void movePlayer (const int  x, const int  y) {
 	}
 }
 
-void checkForThings(void) {
+static void checkForThings(void) {
 	int detect_thing = 0;
 	wclear(prompt_win);
 	checkForThingsFront(&detect_thing);
@@ -309,7 +304,7 @@ void checkForThings(void) {
 	wrefresh(prompt_win);
 }
 
-void checkForThingsFront(int *const detect_thing) {
+static void checkForThingsFront(int *const detect_thing) {
 	if (player->y < WIDTH_CHECK) {
 		if(map[player->x][player->y+1]->type != 0 && map[player->x][player->y+1]->visited == 0) {
 			*detect_thing = 1;
@@ -317,7 +312,7 @@ void checkForThingsFront(int *const detect_thing) {
 	}
 }
 
-void checkForThingsBehind(int *const detect_thing) {
+static void checkForThingsBehind(int *const detect_thing) {
 	if(player->y > 0){
 		if(map[player->x][player->y-1]->type != 0 && map[player->x][player->y-1]->visited == 0) {
 			*detect_thing = 1;
@@ -325,7 +320,7 @@ void checkForThingsBehind(int *const detect_thing) {
 	}
 }
 
-void checkForThingsAbove(int *const detect_thing) {
+static void checkForThingsAbove(int *const detect_thing) {
 	if(player->x > 0) {
 		if(map[player->x-1][player->y]->type != 0 && map[player->x-1][player->y]->visited == 0 ) {
 			*detect_thing = 1;
@@ -343,7 +338,7 @@ void checkForThingsAbove(int *const detect_thing) {
 	}
 }
 
-void checkForThingsBelow(int *const detect_thing) {
+static void checkForThingsBelow(int *const detect_thing) {
 	if(player->x < HEIGHT_CHECK) {
 		if (map[player->x+1][player->y]->type != 0 && map[player->x+1][player->y]->visited == 0) {
 			*detect_thing = 1;
@@ -361,7 +356,7 @@ void checkForThingsBelow(int *const detect_thing) {
 	}
 }
 
-void checkTileForEnemyAndObj(void) {
+static void checkTileForEnemyAndObj(void) {
 	switch (previous->type) {
 		case 1: foundEnemy();
 			break;
@@ -375,7 +370,7 @@ void checkTileForEnemyAndObj(void) {
 			break;
 	}
 }
-void foundEnemy(void) {
+static void foundEnemy(void) {
 	wclear(game_win);
 	printHero();  									//printenemy.c
 	printEnemies(previous->character->type);        //printenemy.c
@@ -387,7 +382,7 @@ void foundEnemy(void) {
 			
 }
 
-void foundObj(void) {	
+static void foundObj(void) {	
 	wclear(game_win);
 	printHeroPlaces();              //printobjects.c
 	printPlaces(previous->obj->type);   //printobjects.c
@@ -412,7 +407,7 @@ void foundObj(void) {
 	}
 }
 
-int checkObjEnemy(void) {
+static int checkObjEnemy(void) {
 	if (previous->obj->enemy!=0){
 		wclear(game_win);
 		printPlaces(previous->obj->type);				  //printobjects.c
@@ -429,7 +424,7 @@ int checkObjEnemy(void) {
 	}
 }
 
-void getFood(void) {
+static void getFood(void) {
 	wclear(prompt_win);
 	wprintw(prompt_win,"you find some food\nwould you like to eat it to restore some health? (y/n)");
 	wrefresh(prompt_win);
@@ -465,7 +460,7 @@ void getFood(void) {
 	}
 }
 
-void getLoot(void) {
+static void getLoot(void) {
 	wprintw(prompt_win,"\nyou found some valuable loot.");
 	wrefresh(prompt_win);
 	getch();
@@ -473,7 +468,7 @@ void getLoot(void) {
 	previous->obj->loot = 0;
 }
 
-void checkObjThings(void) {
+static void checkObjThings(void) {
 	int stuff = 0;
 	if (previous->obj->food == 1) {
 		getFood();
@@ -491,14 +486,14 @@ void checkObjThings(void) {
 	}
 }
 
-void foundWell(void) {
+static void foundWell(void) {
 	wclear(game_win);
 	printHeroPlaces(); //printobjects.c
 	printPlaces(6);   //printobjects.c
 	(previous->well_full == 1) ? drinkFromWell() : (printOptionsPlaces(7), getch()); //printobjects.c
 }
 
-void drinkFromWell(void) {
+static void drinkFromWell(void) {
 	printOptionsPlaces(6); //printobjects.c
 	if(getch() == 'y') {
 		wclear(prompt_win);
@@ -511,14 +506,14 @@ void drinkFromWell(void) {
 	previous->visited = 1;
 }
 
-void printShrineAndPlayer(void) {
+static void printShrineAndPlayer(void) {
 	wclear(game_win);
 	printHeroPlaces(); //printobjects.c
 	printPlaces(previous->type); //printobjects.c
 	wrefresh(game_win);
 }
 
-void increasePlayerAttack(void){
+static void increasePlayerAttack(void){
 	PLAYER->attack += 2;
 	wclear(prompt_win);
 	wprintw(prompt_win,"you enter the shrine and make an offering to the gods.\nthey grant you a bonus to your attack.");
@@ -526,7 +521,7 @@ void increasePlayerAttack(void){
 	getch();
 }
 
-void increasePlayerDefense(void){
+static void increasePlayerDefense(void){
 	PLAYER->defense += 2;
 	PLAYER->defense_value += 2;
 	wclear(prompt_win);
@@ -535,7 +530,7 @@ void increasePlayerDefense(void){
 	getch();
 }
 
-void increasePlayerHealth(void){
+static void increasePlayerHealth(void){
 	PLAYER->health_max += 10;
 	PLAYER->health = PLAYER->health_max;
 	wclear(prompt_win);
@@ -544,7 +539,7 @@ void increasePlayerHealth(void){
 	getch();
 }
 
-void getShrineInput(void) {
+static void getShrineInput(void) {
 	if(getch() == 'y') {
 		switch(previous->shrine_blessing) {
 			case 0: increasePlayerAttack();
@@ -567,7 +562,7 @@ void getShrineInput(void) {
 	}
 }
 
-void foundShrine(void) {
+static void foundShrine(void) {
 	if(previous->shrine_blessing != 10){  //if you havent already made an offering at this shrine
 		printShrineAndPlayer();
 		printOptionsPlaces(previous->type); //printobjects.c
@@ -587,7 +582,7 @@ void foundShrine(void) {
 	}
 }
 
-void BossFight(void) {
+static void BossFight(void) {
 	wclear(game_win);
 	wclear(prompt_win);
 	printHero();  //printenemy.c
@@ -597,7 +592,7 @@ void BossFight(void) {
 	endOfGame();
 }
 
-void killOrKilled(void) {
+static void killOrKilled(void) {
 	enemy_killed += continue_game;   //if enemy is killed, add one to count
 	wclear(prompt_win);
 	(continue_game) ? wprintw(prompt_win,"you defeated %s, good job!.",previous->character->name) : wprintw(prompt_win,"%s killed you. game over!",previous->character->name);
@@ -605,7 +600,7 @@ void killOrKilled(void) {
 	getch();
 }
 
-void endOfGame(void) {
+static void endOfGame(void) {
 	wclear(game_win);
 	wclear(prompt_win);
 	continue_game = 0;
@@ -623,7 +618,7 @@ void endOfGame(void) {
 	getch();
 }
 
-void quitGame(void) {
+static void quitGame(void) {
 	wclear(prompt_win);
 	wprintw(prompt_win,"are you sure you wish to quit(y/n)");
 	wrefresh(prompt_win);

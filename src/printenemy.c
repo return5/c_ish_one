@@ -2,31 +2,27 @@
 #include "gamepieces.h"
 
 /*============================================================ prototypes ============================================================*/
-void printSwordsman(void);
-void printSkeleton(void);
-void printSlinger(void);
-void printTheif(void);
-void printArcher(void);
-void printSpearman(void);
-void printDog(void);
-void printMage(void);
-void printScrugg(void);
-void printHalflings(void);
-void printHalflingL(void);
-void printHalflingR(void);
-void printMonsterHead(const int x);
-void printMonsterBody(void);
-void printMonsterSeveredHead(const int y, const int x);
-void printMonster(void);
-void printMonsterL(void);
-void printMonsterR(void);
-void printDelmerBody(const int y, const int x);
-void printDelmerR(void);
-void printDelmerL(void);
-void printDelmer(void);
-void printBoss(void);
-void printCleanEnemies(void);
 
+static void printHalflingL(void);
+static void printBoss(void); 
+static void printDelmer(void); 
+static void printDelmerR(void); 
+static void printMonsterR(void); 
+static void printMonsterL(void); 
+static void printMonster(void); 
+static void printMonsterSeveredHead(const int y, const int x); 
+static void printMonsterBody(void); 
+static void printMonsterHead(const int x); 
+static void printHalflingR(void); 
+static void printHalflings(void); 
+static void printScrugg(void); 
+static void printMage(void); 
+static void printSpearman(void); 
+static void printArcher(void); 
+static void printTheif(void); 
+static void printSlinger(void); 
+static void printSkeleton(void); 
+static void printSwordsman(void); 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -52,7 +48,7 @@ void printHero(void) {
 	wattroff(game_win,RED);
 }
 
-void printSwordsman(void) {
+static void printSwordsman(void) {
 	wattron(game_win,GREEN);
 	mvwprintw(game_win,11,27,"O"); //head
 	mvwprintw(game_win,12,25,"__"); //left arm
@@ -74,7 +70,7 @@ void printSwordsman(void) {
 	wattroff(game_win,WHITE);
 }
 
-void printSkeleton(void) {
+static void printSkeleton(void) {
 	wattron(game_win,CYAN);
 	mvwprintw(game_win,10,26,"|"); //sword handle
 	mvwprintw(game_win,11,26,"|"); //sword handle
@@ -95,7 +91,7 @@ void printSkeleton(void) {
 	wattroff(game_win,WHITE);
 }
 
-void printSlinger(void) {
+static void printSlinger(void) {
 	wattron(game_win,CYAN);
 	mvwprintw(game_win,11,27,"O"); //head
 	mvwprintw(game_win,12,27,"|"); //upper torso
@@ -115,7 +111,7 @@ void printSlinger(void) {
 	wattroff(game_win,YELLOW);
 }
 
-void printTheif(void) {
+static void printTheif(void) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,11,27,"O"); //head
 	wattroff(game_win,YELLOW);
@@ -131,7 +127,7 @@ void printTheif(void) {
 	wattroff(game_win,GREEN);
 }
 
-void printArcher(void) {
+static void printArcher(void) {
 	wattron(game_win,BLUE);
 	mvwprintw(game_win,11,29,")"); //bow
 	mvwprintw(game_win,12,28,"/"); //bow
@@ -167,7 +163,7 @@ void printArcher(void) {
 	wattroff(game_win,GREEN);
 }
 	
-void printSpearman(void) {
+static void printSpearman(void) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,13,26,"____ _ _ __"); //spear
 	wattroff(game_win,YELLOW);	
@@ -199,7 +195,7 @@ void printSpearman(void) {
 	wattroff(game_win,YELLOW);	
 }
 
-void printMage(void) { 
+static void printMage(void) { 
 	wattron(game_win,BLUE);
 	mvwprintw(game_win,11,27,"O"); //head
 	mvwprintw(game_win,12,25,"__|__"); //upper torso and arms
@@ -220,7 +216,7 @@ void printMage(void) {
 	wattroff(game_win,CYAN);
 }
 
-void printScrugg(void) {
+static void printScrugg(void) {
 	wattron(game_win,WHITE);
 	mvwprintw(game_win,10,27,"O O"); //eyes
 	wattroff(game_win,WHITE);
@@ -243,12 +239,12 @@ void printScrugg(void) {
 	wattroff(game_win,YELLOW);
 }
 
-void printHalflings(void) {
+static void printHalflings(void) {
 	printHalflingL();
 	printHalflingR();
 }
 
- void printHalflingL(void) {
+static void printHalflingL(void) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,13,30,"0"); //head
 	mvwprintw(game_win,14,28,"-- --"); //arms
@@ -261,7 +257,7 @@ void printHalflings(void) {
 	wattroff(game_win,BLUE);
 }
 
-void printHalflingR(void) {
+static void printHalflingR(void) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,13,40,"0"); //head
 	mvwprintw(game_win,14,38,"-- --"); //arms
@@ -274,7 +270,7 @@ void printHalflingR(void) {
 	wattroff(game_win,CYAN);
 }
 
-void printMonsterHead(const int x) {
+static void printMonsterHead(const int x) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,9,26+x,"(   )"); //facce
 	wattroff(game_win,YELLOW);
@@ -286,7 +282,7 @@ void printMonsterHead(const int x) {
 	wattroff(game_win,RED);
 }
 
-void printMonsterBody(void) {
+static void printMonsterBody(void) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,10,25,"____\\----/____");
 	mvwprintw(game_win,11,29,"|____|");
@@ -295,7 +291,7 @@ void printMonsterBody(void) {
 	mvwprintw(game_win,14,26,"/          \\");
 }
 
-void printMonsterSeveredHead(const int y, const int x) {
+static void printMonsterSeveredHead(const int y, const int x) {
 	wattron(game_win,YELLOW);
 	mvwprintw(game_win,16+y,20+x,"(   )"); //severed head face
 	wattroff(game_win,YELLOW);
@@ -308,19 +304,19 @@ void printMonsterSeveredHead(const int y, const int x) {
 }
 
 //two headed monster
-void printMonster(void) {
+static void printMonster(void) {
 	printMonsterHead(0);
 	printMonsterHead(7);
 	printMonsterBody();
 }
 
-void printMonsterL(void) {
+static void printMonsterL(void) {
 	printMonsterHead(7);
 	printMonsterBody();
 	printMonsterSeveredHead(0,0);
 }
 
-void printMonsterR(void) {
+static void printMonsterR(void) {
 	printMonsterHead(0);
 	printMonsterBody();
 	printMonsterSeveredHead(-1,20);
@@ -338,7 +334,7 @@ void printMonsterR(void) {
 	wattroff(game_win,RED);
 } 
 
-void printDelmerR(void) {
+static void printDelmerR(void) {
 	printDelmerBody(0,8);
 }
 
@@ -346,12 +342,12 @@ void printDelmerR(void) {
 	printDelmerBody(0,0);
 }
 
-void printDelmer(void) {
+static void printDelmer(void) {
 	printDelmerR();
 	printDelmerL();
 }
 
-void printBoss(void) {
+static void printBoss(void) {
 	wattron(game_win,GREEN);
 	mvwprintw(game_win,4,29,"^^^^^^^^^^^"); //top of head
 	wattroff(game_win,GREEN);

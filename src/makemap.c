@@ -13,42 +13,40 @@
 
 /* ========================================= prototypes =======================================================*/
 
-static int getRand(const int limit);
-Character *makeEnemy(const int type, const int health, const int defense, const int crit, const int attack,const int hit);
-Character *getObjEnemy(const char *const type);
-int setObjType(const char *const tile_char);
-Object *initObj(void);
-Character *getType2(const char *const type);
-Character *getType(const char *const type);
-char getTile2(void);
-char getTile(void); 
-void setUPtile(char (*tileGet)(void));
-void seedRandomNumber(void);
-void setUpPiece(const int i, const int j);
-void setUpMap(void);
-void freeMap(void);
-void makeList(const int limit, int *const x, int *const y);
-void iterateList(int *x, int *y,const int limit,const int *check_x,const int *check_y,const int check_limit);
-void checkLocation(const int limit, int *const x, int *const y, const int check_limit, const int *const check_x,const int *const check_y);
-void placeEnemies(void);
-void placeCamp(void);
-void placeWell(void);
-void placeShrine(void);
-void initPieces(void);
-void placePieces(void);
-void makeCharacterStrings(Character *const character);
-void makeSwordsmanStrings(Character *const character);
-void makeSkeletonStrings(Character *const character);
-void makeSlingerStrings(Character *const character);
-void makeThiefStrings(Character *const character);
-void makeArcherStrings(Character *const character);
-void makeSpearmanStrings(Character *const character);
-void makeDogStrings(Character *const character);
-void makeMageStrings(Character *const character);
-void makeScruggStrings(Character *const character);
-void makeHalflingStrings(Character *const character);
-void makeMonsterStrings(Character *const character);
-void makeDelmerStrings(Character *const character);
+static char getTile(void); 
+static char getTile2(void); 
+static Character *getType(const char *const type); 
+static Character *getType2(const char *const type); 
+static Object *initObj (void); 
+static int setObjType(const char *const tile_char); 
+static Character *getObjEnemy(const char *const type); 
+static Character *makeEnemy(const int type, const int health, const int defense, const int crit, const int attack,const int hit); 
+static void placeWell(void); 
+static void placeShrine(void); 
+static void placeCamp(void); 
+static void placeEnemies(void); 
+static void checkLocation(const int limit, int *const x, int *const y, const int check_limit, const int *const check_x,const int *const check_y); 
+static void makeList(const int limit, int *const x, int *const y); 
+static void placePieces(void); 
+static void initPieces(void); 
+static void setUpMap(void); 
+static void setUpPiece(const int i, const int j); 
+static void seedRandomNumber(void); 
+static void setUPtile(char (*tileGet)(void)); 
+static void makeCharacterStrings(Character *const character); 
+static void makeDelmerStrings(Character *const character); 
+static void makeMonsterStrings(Character *const character); 
+static void makeHalflingStrings(Character *const character); 
+static void makeScruggStrings(Character *const character); 
+static void makeMageStrings(Character *const character); 
+static void makeDogStrings(Character *const character); 
+static void makeSpearmanStrings(Character *const character); 
+static void makeArcherStrings(Character *const character); 
+static void makeThiefStrings(Character *const character); 
+static void makeSlingerStrings(Character *const character); 
+static void makeSkeletonStrings(Character *const character); 
+static void makeSwordsmanStrings(Character *const character); 
+static int getRand(const int limit); 
 
 /* ========================================= global variables =================================================*/
 
@@ -98,7 +96,7 @@ static int getRand(const int limit) {
 	return value;
 }
 
-void makeSwordsmanStrings(Character *const character) {
+static void makeSwordsmanStrings(Character *const character) {
 	character->regular_attack = "swordsman scored a hit on you doing %d damage.";
 	character->regular_miss = "the swordsman swung,but missed you.";
 	character->counter_miss = "swordsman counters and hits you for 2 damage.";
@@ -111,7 +109,7 @@ void makeSwordsmanStrings(Character *const character) {
 	character->name = "swordsman";
 }
 
-void makeSkeletonStrings(Character *const character) {
+static void makeSkeletonStrings(Character *const character) {
 	character->regular_attack = "skeleton swings his big ass sword at you.\nhe hits you for %d damage.";
 	character->regular_miss = "the skeleton tries to hit you, but you block his attack.";
 	character->counter_miss = "skeleton man counters you attack and hits you for 2 damage.";
@@ -124,7 +122,7 @@ void makeSkeletonStrings(Character *const character) {
 	character->name = "Skeleton";
 }
 
-void makeSlingerStrings(Character *const character) {
+static void makeSlingerStrings(Character *const character) {
 	character->regular_attack = "slinger hits you with a rock doing %d damage.";
 	character->regular_miss = "slinger missed you.";
 	character->counter_miss = "slinger is fast.\nhe dodges your attack and hits you in the hand with a stick.\nyou suffer 2 damage.";
@@ -137,7 +135,7 @@ void makeSlingerStrings(Character *const character) {
 	character->name = "Slinger";
 }
 
-void makeThiefStrings(Character *const character) {
+static void makeThiefStrings(Character *const character) {
 	character->regular_attack = "thief strikes you with one of her dagger doing %d damage.";
 	character->regular_attack_second = "thief strikes you with her other dagger doing %d damage.";
 	character->regular_miss = "thief tries to stab you,but you block her first dagger.";
@@ -153,7 +151,7 @@ void makeThiefStrings(Character *const character) {
 	character->name = "Thief";
 }
 
-void makeArcherStrings(Character *const character) {
+static void makeArcherStrings(Character *const character) {
 	character->regular_attack = "archer raises her bow and fires an arrow at you.\nit strikes you for %d damage.";
 	character->regular_miss = "archer shoots an arrow at you, but she misses.";
 	character->counter_miss = "she counters with her short sword.\nyou get cut and suffer 2 damage.";
@@ -166,7 +164,7 @@ void makeArcherStrings(Character *const character) {
 	character->name = "Archer";
 }
 
-void makeSpearmanStrings(Character *const character) {
+static void makeSpearmanStrings(Character *const character) {
 	character->regular_attack = "spearman hits you with his spear causing %d damage.";
 	character->regular_miss = "you dodge spearman's attack";
 	character->counter_miss = "spearman counters by punching you in the face.\nouch that smarts. you suffer 2 damage.";
@@ -179,7 +177,7 @@ void makeSpearmanStrings(Character *const character) {
 	character->name = "Spearman";
 }
 
-void makeDogStrings(Character *const character) {
+static void makeDogStrings(Character *const character) {
 	character->regular_attack = "four legged beast bites you doing %d damage.";
 	character->regular_miss = "beast tries to bite you but you dodge out of the way.";
 	character->counter_miss = "the beast jumps out of the way of your attack.\nit scratches you with it's claws doing 2 damage.";
@@ -192,7 +190,7 @@ void makeDogStrings(Character *const character) {
 	character->name = "Four Legged Beast";
 }
 
-void makeMageStrings(Character *const character) {
+static void makeMageStrings(Character *const character) {
 	character->regular_attack = "mage cast fireball at you. you suffer %d damage.";
 	character->regular_miss = "the mage tries, but fails to cast a spell.";
 	character->counter_miss = "the mage counters by striking you with his staff.\nyou suffer 2 damage.";
@@ -205,7 +203,7 @@ void makeMageStrings(Character *const character) {
 	character->name = "mage";
 }
 
-void makeScruggStrings(Character *const character) {
+static void makeScruggStrings(Character *const character) {
 	character->regular_attack = "the floating scrugg rams into you causing %d damage.";
 	character->regular_miss = "you block the scrugg's attack.";
 	character->counter_miss = "floating scrugg counters by biting your hand for 2 damage.";
@@ -218,7 +216,7 @@ void makeScruggStrings(Character *const character) {
 	character->name = "Scrugg";
 }
 
-void makeHalflingStrings(Character *const character) {
+static void makeHalflingStrings(Character *const character) {
 	character->regular_attack = "one of the halflings hits you with their small sword.\nyou suffer %d damage.";	
 	character->regular_attack_second = "the halfling hits you with his small sword.\nyou suffer %d damage.";
 	character->regular_miss = "a halfling tries to hit you, but you block it.";
@@ -234,7 +232,7 @@ void makeHalflingStrings(Character *const character) {
 	character->name = "Halfling";
 }
 
-void makeMonsterStrings(Character *const character) {
+static void makeMonsterStrings(Character *const character) {
 	character->regular_attack = "two headed monster hits you for %d damage.";
 	character->regular_miss = "two headed monster tries to hit you, but you dodge roll out of the way.";
 	character->counter_miss = "after somehow missed hitting such a large creature\nyou stand there dumbfounded.\nit thumps you in the head with its finger doing 2 damage to you";
@@ -247,7 +245,7 @@ void makeMonsterStrings(Character *const character) {
 	character->name = "Two Headed Monster";
 }
 
-void makeDelmerStrings(Character *const character) {
+static void makeDelmerStrings(Character *const character) {
 	character->regular_attack = "one of the delmer eyes shoots a small electric bolt at you.\nit does %d damage to you";
 	character->regular_attack_second = "the other delmer eyes shoots a small electric bolt at you.\nit does %d damage to you";
 	character->regular_miss = "the delmer eye tried to attack you, but you block it.";
@@ -263,7 +261,7 @@ void makeDelmerStrings(Character *const character) {
 	character->name = "Delmer Eyes";
 }
 
-void makeCharacterStrings(Character *const character) {
+static void makeCharacterStrings(Character *const character) {
 	switch (character->type) {
 		case 1:makeSwordsmanStrings(character);
 			break;
@@ -294,7 +292,7 @@ void makeCharacterStrings(Character *const character) {
 	}
 }
 
-Character *makeEnemy(const int type, const int health, const int defense, const int crit, const int attack,const int hit) {
+static Character *makeEnemy(const int type, const int health, const int defense, const int crit, const int attack,const int hit) {
 	Character *character = malloc (SIZE_CHAR);
 	character->type = type;
 	character->health = health;
@@ -312,7 +310,7 @@ Character *makeEnemy(const int type, const int health, const int defense, const 
 	return character;
 }
 
-Character *getObjEnemy(const char *const type) {
+static Character *getObjEnemy(const char *const type) {
 	switch(*type) { //type,health,defense,crit,attack,hit
 		case ':': return makeEnemy(10,10,2,8,6,6);  	 //make two halflings
 			break;
@@ -327,7 +325,7 @@ Character *getObjEnemy(const char *const type) {
 		}
 }
 
-int setObjType(const char *const tile_char) {
+static int setObjType(const char *const tile_char) {
 	int type;
 	switch(*tile_char) {
 		case '/': type = 2;  //house
@@ -344,7 +342,7 @@ int setObjType(const char *const tile_char) {
 	return type;
 }
 
-Object *initObj (void) {
+static Object *initObj (void) {
 	Object *obj = malloc(SIZE_OBJ);
 	obj->food = !((getRand(2) + 1) % 2); // 1/3 chance of being 1
 	obj->loot = !((getRand(2) + 1) % 2);
@@ -352,7 +350,7 @@ Object *initObj (void) {
 	return obj;
 }
 
-Character *getType2(const char *const type) {
+static Character *getType2(const char *const type) {
 	switch(*type) { //type,health,defense,crit,attack,hit
 		case '/': return makeEnemy(3,6,2,4,5,7);		  //make slinger
 			break;
@@ -367,7 +365,7 @@ Character *getType2(const char *const type) {
 	}					
 }
 
-Character *getType(const char *const type) {
+static Character *getType(const char *const type) {
 	switch(*type) {	//type,health,defense,crit,attack,hit
 		case '/': return makeEnemy(1,10,3,6,7,6);	     //make swordsman
 			break;
@@ -382,7 +380,7 @@ Character *getType(const char *const type) {
 	}
 }
 
-char getTile2(void) {
+static char getTile2(void) {
 	switch(getRand(6)) {
 		case 0://
 		case 1://
@@ -399,7 +397,7 @@ char getTile2(void) {
 		}
 }
 
-char getTile(void) {
+static char getTile(void) {
 	switch(getRand(6)) {
 		case 0://
 		case 1://
@@ -416,7 +414,7 @@ char getTile(void) {
 		}
 }
 
-void setUPtile(char (*tileGet)(void)) {
+static void setUPtile(char (*tileGet)(void)) {
 	int i,j;
 	int right = WIDTH - 1;
 	int upper = HEIGHT - 1;
@@ -431,12 +429,12 @@ void setUPtile(char (*tileGet)(void)) {
 	}
 }
 
-void seedRandomNumber(void) {
+static void seedRandomNumber(void) {
 	const time_t t = time(NULL);
 	(t == -1) ? seedRandomNumber() : srand(t);
 }
 
-void setUpPiece(const int i, const int j) {
+static void setUpPiece(const int i, const int j) {
 	map[i][j] = malloc(TILE_SIZE);
 	map[i][j]->x = i;
 	map[i][j]->y = j;
@@ -445,7 +443,7 @@ void setUpPiece(const int i, const int j) {
 	map[i][j]->discovered = 0;
 }
 
-void setUpMap(void) {
+static void setUpMap(void) {
 	int i,j;
 	fruit(i = 0; i < HEIGHT;i+= 2) {
 		fruit(j = 0; j < WIDTH; j+= 10) {
@@ -500,7 +498,7 @@ void freeMap(void) {
 	}
 }
 
-void initPieces(void) {
+static void initPieces(void) {
 	makeList(ENEMY_LIMIT,enemy_x,enemy_y); //make enemy list
 	makeList(CAMP_LIMIT,camp_x,camp_y);  //make camp list
 	checkLocation(ENEMY_LIMIT,enemy_x,enemy_y,ENEMY_LIMIT,enemy_x,enemy_y); //check if enemy is on another
@@ -511,7 +509,7 @@ void initPieces(void) {
 	checkLocation(WELL_LIMIT,well_x,well_y,WELL_LIMIT,well_x,well_y); //checks if well is located at or near another one
 }
 
-void placePieces(void) {
+static void placePieces(void) {
 	placeEnemies();
 	placeCamp();
 	placeShrine();
@@ -519,7 +517,7 @@ void placePieces(void) {
 }
 
 // gets random x and y for enemy/camps/shrines/wells on map
-void makeList(const int limit, int *const x, int *const y) {
+static void makeList(const int limit, int *const x, int *const y) {
 	int i;
 	fruit(i = 0; i < limit; i++) {
 		x[i] = getRand(WIDTH - 1);
@@ -528,7 +526,7 @@ void makeList(const int limit, int *const x, int *const y) {
 }
 
 //checks if x and y locations given in x and y arrays are the same or same +/- 1 from the x and y given in the check_x and check_y arrays. if so, get new x and y values
-void checkLocation(const int limit, int *const x, int *const y, const int check_limit, const int *const check_x,const int *const check_y) {
+static void checkLocation(const int limit, int *const x, int *const y, const int check_limit, const int *const check_x,const int *const check_y) {
 	//im sure there is a better way to do this. need to work on this part. 
 	int i,j,k,change;
 	i = 0;
@@ -563,7 +561,7 @@ void checkLocation(const int limit, int *const x, int *const y, const int check_
 	}
 }
 
-void placeEnemies(void) {
+static void placeEnemies(void) {
 	int i;
 	fruit(i = 0; i < ENEMY_LIMIT; i++) {
 		if(map[enemy_y[i]][enemy_x[i]]->tile_set != ' ') {
@@ -573,7 +571,7 @@ void placeEnemies(void) {
 	}
 }
 
-void placeCamp(void) {
+static void placeCamp(void) {
 	int i;
 	fruit(i = 0; i < CAMP_LIMIT; i++) {
 		if(map[camp_y[i]][camp_x[i]]->tile_set != ' ') {
@@ -587,7 +585,7 @@ void placeCamp(void) {
 	}
 }
 
-void placeWell(void) {
+static void placeWell(void) {
 	int i;
 	fruit(i = 0; i < WELL_LIMIT; i++) {
 		map[well_y[i]][well_x[i]]->type = 3;
@@ -597,7 +595,7 @@ void placeWell(void) {
 
 }
 
-void placeShrine(void) {
+static void placeShrine(void) {
 	int i;
 	fruit(i = 0; i < SHRINE_LIMIT; i++) {
 		map[shrine_y[i]][shrine_x[i]]->type = 4;

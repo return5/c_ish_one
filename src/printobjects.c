@@ -2,19 +2,20 @@
 #include "gamepieces.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void printHH(void);
-void printHouse(void);
-void printGC(void);
-void printShrine(void);
-void printCamp(void);
-void printWell(void);
-void printHHPrompt(void);
-void printHousePrompt(void);
-void printGCPrompt(void);
-void printShrinePrompt(void);
-void printCampPrompt(void);
-void printWellPrompt(void);
-void printWellPromptEmpty(void);
+
+static void printWellPromptEmpty(void); 
+static void printWellPrompt(void); 
+static void printCampPrompt(void); 
+static void printShrinePrompt(void); 
+static void printGCPrompt(void); 
+static void printHousePrompt(void); 
+static void printHHPrompt(void); 
+static void printWell(void); 
+static void printCamp(void); 
+static void printShrine(void); 
+static void printGC(void); 
+static void printHouse(void); 
+static void printHH(void); 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,7 +35,7 @@ void printHeroPlaces(void){
 	wrefresh(game_win);
 }
 
-void printHH(void) {
+static void printHH(void) {
 	mvwprintw(game_win,4,29,"  (");
 	mvwprintw(game_win,5,29,"  )");
 	mvwprintw(game_win,6,29," (");
@@ -43,7 +44,7 @@ void printHH(void) {
 	mvwprintw(game_win,9,29,"/\\        (_) (__)");
 }
 
-void printHouse(void) {
+static void printHouse(void) {
 	mvwprintw(game_win,1,33,"          _");
 	mvwprintw(game_win,2,33,"   ______| |_");
 	mvwprintw(game_win,3,33,"  /\\         \\");
@@ -53,7 +54,7 @@ void printHouse(void) {
 	mvwprintw(game_win,7,33,"||_|_|_________|");
 }
 
-void printGC(void) {
+static void printGC(void) {
 	mvwprintw(game_win,0,27,"             --");
 	mvwprintw(game_win,1,27,"                   ");
 	mvwprintw(game_win,2,27,"--   - -|--        -");
@@ -62,7 +63,7 @@ void printGC(void) {
 	mvwprintw(game_win,5,27,"        ---       --");
 }
 
-void printShrine(void) {
+static void printShrine(void) {
 	mvwprintw(game_win,2,20,"       __I__");
 	mvwprintw(game_win,3,20,"     .' ... '.");
 	mvwprintw(game_win,4,20,".__.' ........ '.__,");
@@ -74,7 +75,7 @@ void printShrine(void) {
 	mvwprintw(game_win,10,20,"  |=||:|    |:||=|");
 }
 
-void printCamp(void) {
+static void printCamp(void) {
 	mvwprintw(game_win,7,36,"   /|\\");
 	mvwprintw(game_win,8,36,"  / |\\\\");
 	mvwprintw(game_win,9,36," /  |\\\\\\ ");
@@ -84,7 +85,7 @@ void printCamp(void) {
 	mvwprintw(game_win,13,36,"/ [] [] \\");                              
 }
 
-void printWell(void) {
+static void printWell(void) {
 	mvwprintw(game_win,14,30,"|======|");
 	mvwprintw(game_win,15,30,"|======|");
 }
@@ -109,29 +110,29 @@ void printPlaces(const int x) {
 	wrefresh(game_win);
 }
 
-void printHHPrompt(void) {
+static void printHHPrompt(void) {
 	wprintw(prompt_win,"you find the smoking embers of a fire\nlooking around you see some items on the ground.\ndo you want to scrounge around? (y/n)");
 }
 
-void printHousePrompt(void){
+static void printHousePrompt(void){
 	wprintw(prompt_win,"you encounter a small cabin.\nwould you like to explore it? (y/n)");
 }
 
-void printGCPrompt(void) {
+static void printGCPrompt(void) {
 	wprintw(prompt_win,"you find a small clearing\nlooking around it is clearly been used by a giant.\nyou see a broken sword and various bits of stuff scattered on the ground. do you wish to snoop around? (y/n) ");
 }
-void printShrinePrompt(void) {
+static void printShrinePrompt(void) {
 	wprintw(prompt_win,"you find a small shrine.\ndo you wish to enter and offer a blessing to the gods? (y/n) ");
 }
 
-void printCampPrompt(void) {
+static void printCampPrompt(void) {
 	wprintw(prompt_win,"you find A small lean-to\ndo you wish to look around? (y/n)");
 }
-void printWellPrompt(void) {
+static void printWellPrompt(void) {
 	wprintw(prompt_win,"you find a small well.\ndo you wish to drink from it and restore health?(y/n)");
 }
 
-void printWellPromptEmpty(void) {
+static void printWellPromptEmpty(void) {
 	wprintw(prompt_win,"you find a small well.\nunfortunately the well is empty.");
 
 }

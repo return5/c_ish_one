@@ -5,19 +5,19 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void initWindow(void);
-void makePlayer(void);
-void setUpStart(void);
-void initColors(void);
-void makeGameWin(void);
-void makePromptWin(void);
+static void initColors(void);
+static void makePlayer(void);
+static void makePromptWin(void);
+static void makeGameWin(void);
 static int getRandInt(const int limit);
+static void initWindow(void);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 WINDOW *game_border; 		  	   //window for game border	
 WINDOW *game_win;			  	  //window for game map
 WINDOW *prompt_win;	   	     	 //window for text prompts
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void initGame(void) {
 	initWindow();
 	initColors();
@@ -31,13 +31,13 @@ void initGame(void) {
 static int getRandInt(const int limit) {
 	const int divisor = RAND_MAX/(limit + 1);
 	int value;
-	do{
+	do {
 		value = rand() / divisor;
 	} while(value > limit);
 
 	return value;
 }
-void makeGameWin(void){
+static void makeGameWin(void){
 	game_win = newwin(HEIGHT,WIDTH,3,3);
 	game_border = newwin(HEIGHT+2,WIDTH+2,2,2);
 	wborder(game_border,'|','|','-', '-', '+', '+', '+', '+');	
@@ -47,12 +47,12 @@ void makeGameWin(void){
 
 }
 
-void makePromptWin(void) {
+static void makePromptWin(void) {
 	prompt_win = newwin(7,WIDTH+12,HEIGHT+4,2);
 	wrefresh(prompt_win);
 }
 
-void initWindow(void) {
+static void initWindow(void) {
 	initscr();
 	noecho();	      //dont display key strokes
 	cbreak();	     //disable line buffering
@@ -62,7 +62,7 @@ void initWindow(void) {
 	half_x = LINES / 2;
 }
 
-void initColors(void) {
+static void initColors(void) {
 	start_color();
 	init_color(COLOR_YELLOW,700,700,98);
 	init_pair(1,COLOR_BLACK,COLOR_BLACK);   
@@ -75,7 +75,7 @@ void initColors(void) {
 	init_pair(8,COLOR_BLUE,COLOR_BLACK);
 }
 
-void makePlayer(void) {
+static void makePlayer(void) {
 	player = malloc(sizeof(tile));
 	Character *character = malloc(sizeof(Character));
 	player->character = character;

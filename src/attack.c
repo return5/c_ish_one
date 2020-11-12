@@ -8,52 +8,48 @@
 /*=========================================== const ==========================================================================*/
 #define ENEMY previous->character
 
-
 /*=========================================== prototypes ==========================================================================*/
 
-
-static int getRandInt(const int limit);
-void printAttackPrompt(void);
-void getInput(int *const run_away,int *const play);
-void criticalHit(Character *const attacker,Character *const enemy,const char *const str);
-void regularHit(Character *const attacker,Character *const defender,const char *const str);
-void counterStrike(Character *const attacker,Character *const defender);
-void missed(Character *const attacker,Character *const defender,const char *const str);
-void attackEnemySelection(Character *const attacker,Character *const defender);
-void raiseDefense(Character *const attacker);
-void useSpecial(Character *const attacker,Character *const defender);
-void computerSelection(int *const play);
-void eatFood(void);
-void playerAliveReset(int *const run_away,int *const ran_away);
-void throwOpponent(Character *const attacker,Character *const defender);
-void defenseDown(Character *const attacker,Character *const defender);
-void powerAttack(Character *const attacker,Character *const defender);
-void playerTurn(int *const play, int *const run_away);
-void computerTurn(int *const play);
-int critHitRLEnemy(Character *const defender);
-void printHalflingCut(const int selection);
-void printGiantCut(const int selection);
-void printDelmerCut(const int selection);
-int checkIfHealthIsHalf(Character *const defender);
-int runAway(void);
-void theifSpecial(void);
-void archerSpecial(void);
-void resetTile(void);
-void setPlayerStrings(void);
-void makeHalflingEnragedStrings(void);
-void makeMonsterEnragedStrings(void);
-void makeDelmerEnragedStrings(void);
-int checkEnragedEnemy(void);
-void printNewEnemy(void); 
-void makeBossStrings(void);
-void setUpBoss(void);
-void bossSpecial(void);
-char *throwBoss(void);
-void playerRetry(const char *const str);
-void refreshPrompt(void);
-char *defensedownBoss(void);
-char *powerAttackBoss(void);
-void playerSpecial(void);
+static void setPlayerStrings(void); 
+static void computerTurn(int *const play); 
+static void playerTurn(int *const play, int *const run_away); 
+static void playerAliveReset(int *const run_away, int *const ran_away); 
+static void resetTile(void); 
+static void printAttackPrompt(); 
+static void getInput(int *const run_away, int *const play); 
+static void playerRetry(const char *const str); 
+static void refreshPrompt(void); 
+static int runAway(void); 
+static int checkEnragedEnemy(void); 
+static void computerSelection(int *const play); 
+static void eatFood(void); 
+static void useSpecial(Character *const attacker,Character *const defender); 
+static void theifSpecial(void); 
+static void playerSpecial(void); 
+static void powerAttack(Character *const attacker,Character *const defender); 
+static void defenseDown(Character *const attacker,Character *const defender); 
+static void throwOpponent(Character *const attacker,Character *const defender); 
+static char *powerAttackBoss(void); 
+static char *defensedownBoss(void); 
+static char *throwBoss(void); 
+static void raiseDefense(Character *const attacker); 
+static void attackEnemySelection(Character *const attacker,Character *const defender); 
+static void missed(Character *const attacker,Character *const defender,const char *const str); 
+static void counterStrike(Character *const attacker,Character *const defender); 
+static void regularHit(Character *const attacker,Character *const defender, const char *const str); 
+static void criticalHit(Character *const attacker,Character *const enemy, const char *const str); 
+static int checkIfHealthIsHalf(Character *const defender); 
+static int critHitRLEnemy(Character *const defender); 
+static void printDelmerCut(const int selection); 
+static void printGiantCut(const int selection); 
+static void printHalflingCut(const int selection); 
+static void printNewEnemy(void); 
+static void makeDelmerEnragedStrings(void); 
+static void makeMonsterEnragedStrings(void); 
+static void makeHalflingEnragedStrings(void); 
+static void makeBossStrings(void); 
+static void bossSpecial(void); 
+static int getRandInt(const int limit); 
 
 /*=========================================== code ==========================================================================*/
 
@@ -67,7 +63,7 @@ static int getRandInt(const int limit) {
 	return value;
 }
 
-void bossSpecial(void) {		
+static void bossSpecial(void) {		
 	if(getRandInt(10) > PLAYER->chance_to_dodge && getRandInt(10) >= ENEMY->crit_chance) {
 		char *const str = malloc(160);		
 		sprintf(str,ENEMY->special_attack,ENEMY->attack);
@@ -83,7 +79,7 @@ void bossSpecial(void) {
 	}
 }
 
-void makeBossStrings(void) {
+static void makeBossStrings(void) {
 	ENEMY->regular_attack = "boss monster attacks you for %d damage.";
 	ENEMY->regular_miss = "you dodged the monster's attack."; 
 	ENEMY->counter_miss = "big boss counters dealing 4 damage."; 
@@ -112,7 +108,7 @@ void setUpBoss(void) {
 	makeBossStrings();
 }
 
-void makeHalflingEnragedStrings(void) {
+static void makeHalflingEnragedStrings(void) {
 	ENEMY->regular_attack = "enraged halfling attacks you for %d damage.";
 	ENEMY->regular_miss = "halfing strikes at you but misses.";
 	ENEMY->counter_miss = "enraged halfling counters and hits you for 2 damage.";
@@ -124,7 +120,7 @@ void makeHalflingEnragedStrings(void) {
 	ENEMY->prompt = "you killed his friend\nthe surviving halfling is now thrown into an enraged state.";
 }
 
-void makeMonsterEnragedStrings(void) {
+static void makeMonsterEnragedStrings(void) {
 	ENEMY->regular_attack = "enraged beast attacks you dealing %d damage.";
 	ENEMY->regular_miss = "angry monster missed you with his attack.";
 	ENEMY->counter_miss = "enraged beast counters your attack inflicting four damage.";
@@ -135,7 +131,7 @@ void makeMonsterEnragedStrings(void) {
 	ENEMY->special_fail = "nothing but good old fashion stabbing is going to take down this infuriated beast.\nhe counters doing four damage.";
 	ENEMY->prompt = "cutting off his other head aggravates the monster. he is now enraged.";
 }
-void makeDelmerEnragedStrings(void) {
+static void makeDelmerEnragedStrings(void) {
 	ENEMY->regular_attack = "angered delmer eye hits you for %d damage.";
 	ENEMY->regular_miss = "enraged delmer eye missed.";
 	ENEMY->counter_miss = "the angry delmer eye counters your attack dealing four damage to you.";
@@ -147,7 +143,7 @@ void makeDelmerEnragedStrings(void) {
 	ENEMY->prompt = "\nkilling the delmer eye causes the other to enter into a rage.";
 }
 
-void printNewEnemy(void) {
+static void printNewEnemy(void) {
 	wclear(game_win);
 	switch(ENEMY->type) { //reprint background for halfing camp and monster
 		case 13://enraged halflings
@@ -166,25 +162,25 @@ void printNewEnemy(void) {
 	wrefresh(game_win);
 }
 
-void printHalflingCut(const int selection) {
+static void printHalflingCut(const int selection) {
 	wclear(prompt_win);
 	wprintw(prompt_win,"%s\n",(selection == 0) ? "you struck the right hand halfling killing it." : "you struck the left hand halfling killing it.");
 	wprintw(prompt_win,"%s",ENEMY->prompt);
 }
 
-void printGiantCut(const int selection) {
+static void printGiantCut(const int selection) {
 	wclear(prompt_win);
 	wprintw(prompt_win,"%s",(selection == 0) ? "you swing with all your might and cut off the head on the right hand side." : "you swing with all your might and cut off the head on the left hand side.");
 	wprintw(prompt_win,"%s",ENEMY->prompt);
 }
 
-void printDelmerCut(const int selection) {
+static void printDelmerCut(const int selection) {
 	wclear(prompt_win);
 	wprintw(prompt_win,"%s",(selection == 0) ? "you strike a blow to the delmer eye on the right." : "you strike a blow to the delmer eye on the left.");
 	wprintw(prompt_win,"%s",ENEMY->prompt);
 }
 
-int critHitRLEnemy(Character *const defender) {
+static int critHitRLEnemy(Character *const defender) {
 	const int selection = getRandInt(1);
 	switch (defender->type) {
 		case 10: 
@@ -216,11 +212,11 @@ int critHitRLEnemy(Character *const defender) {
 	printNewEnemy();
 	return 1;
 }
-int checkIfHealthIsHalf(Character *const defender) {
+static int checkIfHealthIsHalf(Character *const defender) {
 	return ((defender->health ) <= ((defender->health_max) / 2)) ? critHitRLEnemy(defender) : 0;
 }
 
-void criticalHit(Character *const attacker,Character *const enemy, const char *const str) {
+static void criticalHit(Character *const attacker,Character *const enemy, const char *const str) {
 	const int damage = (attacker->attack - enemy->defense > 0) ? (attacker->attack - enemy->defense) + 2 : 3;
 	enemy->health -= damage;
 	if(checkIfHealthIsHalf(enemy) == 0) {
@@ -231,7 +227,7 @@ void criticalHit(Character *const attacker,Character *const enemy, const char *c
 	}
 }
 
-void regularHit(Character *const attacker,Character *const defender, const char *const str) {
+static void regularHit(Character *const attacker,Character *const defender, const char *const str) {
 	const int damage = (attacker->attack - defender->defense > 0) ? attacker->attack - defender->defense : 1;
 	defender->health -= damage;
 	if(defender->type == 11 || checkIfHealthIsHalf(defender) == 0) {
@@ -242,21 +238,21 @@ void regularHit(Character *const attacker,Character *const defender, const char 
 	}
 }
 
-void counterStrike(Character *const attacker,Character *const defender) {
+static void counterStrike(Character *const attacker,Character *const defender) {
 	attacker->health -= 2;
 	if(checkIfHealthIsHalf(defender) == 0) {
 		wprintw(prompt_win,"%s\n",defender->counter_miss);
 	}
 }
 
-void missed(Character *const attacker,Character *const defender,const char *const str) {
+static void missed(Character *const attacker,Character *const defender,const char *const str) {
 	wprintw(prompt_win,"%s\n",str);
 	if (getRandInt(10) > defender->crit_chance && defender->turn == 0) {
 		counterStrike(attacker,defender);
 	}
 }
 
-void attackEnemySelection(Character *const attacker,Character *const defender) {
+static void attackEnemySelection(Character *const attacker,Character *const defender) {
 	if(getRandInt(10) > defender->chance_to_dodge || defender->turn != 0) {
 		(getRandInt(10) > attacker->crit_chance) ? criticalHit(attacker,defender,attacker->critical_hit) : regularHit(attacker,defender,attacker->regular_attack);
 	}
@@ -281,14 +277,14 @@ void attackEnemySelection(Character *const attacker,Character *const defender) {
 	refreshPrompt();
 }
 
-void raiseDefense(Character *const attacker) {
+static void raiseDefense(Character *const attacker) {
 	wprintw(prompt_win,"%s\n",attacker->raise_defense);
 	attacker->defense += 2;
 	attacker->defense_up = 1;
 	refreshPrompt();
 }
 
-char *throwBoss(void) {
+static char *throwBoss(void) {
 	if(getRandInt(10) > ENEMY->chance_to_dodge) {
 		ENEMY->health -= 2;
 		ENEMY->turn = 2;	
@@ -300,7 +296,7 @@ char *throwBoss(void) {
 	}
 }
 
-char *defensedownBoss(void) {
+static char *defensedownBoss(void) {
 	if(getRandInt(10) > ENEMY->chance_to_dodge) {
 		PLAYER->attack += 2;
 		PLAYER->special_count = 1;
@@ -311,7 +307,7 @@ char *defensedownBoss(void) {
 	}
 }
 
-char *powerAttackBoss(void) {
+static char *powerAttackBoss(void) {
 	if(getRandInt(10) > ENEMY->chance_to_dodge) {
 		const int damage = (PLAYER->attack + 4) - ENEMY->defense;
 		ENEMY->health -= damage;
@@ -325,7 +321,7 @@ char *powerAttackBoss(void) {
 	}
 }
 
-void throwOpponent(Character *const attacker,Character *const defender) {
+static void throwOpponent(Character *const attacker,Character *const defender) {
 	switch(defender->type) {
 		case 4://thief
 		case 5://archer
@@ -362,7 +358,7 @@ void throwOpponent(Character *const attacker,Character *const defender) {
 	}
 }
 
-void defenseDown(Character *const attacker,Character *const defender) {
+static void defenseDown(Character *const attacker,Character *const defender) {
 	switch(defender->type) {
 		case 2://skeleton
 		case 6://spearman
@@ -400,7 +396,7 @@ void defenseDown(Character *const attacker,Character *const defender) {
 	}
 }
 
-void powerAttack(Character *const attacker,Character *const defender) {
+static void powerAttack(Character *const attacker,Character *const defender) {
 	switch(defender->type) {
 		case 1://swordsman
 		case 3://slinger
@@ -437,7 +433,7 @@ void powerAttack(Character *const attacker,Character *const defender) {
 	}
 }
 
-void playerSpecial(void) {
+static void playerSpecial(void) {
 	switch(PLAYER->special) {
 		case 0:throwOpponent(PLAYER,ENEMY);
 			break;
@@ -450,7 +446,7 @@ void playerSpecial(void) {
 	}
 }
 
-void theifSpecial(void) {
+static void theifSpecial(void) {
 	int check = 0;
 	if(PLAYER->food != 0) {
 		if(getRandInt(10) > PLAYER->chance_to_dodge) {
@@ -473,7 +469,7 @@ void theifSpecial(void) {
 	}
 }
 
-void useSpecial(Character *const attacker,Character *const defender) {
+static void useSpecial(Character *const attacker,Character *const defender) {
 	switch(attacker->type) {
 		case 0:playerSpecial();
 			break;
@@ -510,7 +506,7 @@ void useSpecial(Character *const attacker,Character *const defender) {
 	 refreshPrompt();
 }
 
-void eatFood(void) {
+static void eatFood(void) {
 	wprintw(prompt_win,"you eat some food, restoring 10 health.\n");
 	refreshPrompt();
 	PLAYER->health += 10;
@@ -520,7 +516,7 @@ void eatFood(void) {
 	}
 }
 
-void computerSelection(int *const play) {
+static void computerSelection(int *const play) {
 	wclear(prompt_win);
 	switch(getRandInt(9)+1) {
 		case 1:
@@ -544,7 +540,7 @@ void computerSelection(int *const play) {
 	}
 }
 
-int checkEnragedEnemy(void){
+static int checkEnragedEnemy(void){
 	switch(ENEMY->type) {
 		case 13://enraged halflings
 		case 14://enraged halflings
@@ -559,7 +555,7 @@ int checkEnragedEnemy(void){
 	}
 }
 
-int runAway(void) {
+static int runAway(void) {
 	const int check = checkEnragedEnemy();
 	if (PLAYER->turn == 0 && check == 0) {
 		switch (getRandInt(2)) {
@@ -586,18 +582,18 @@ int runAway(void) {
 	}
 }
 
-void refreshPrompt(void) {
+static void refreshPrompt(void) {
 	wrefresh(prompt_win);	
 	getch();
 }
 
-void playerRetry(const char *const str) {
+static void playerRetry(const char *const str) {
 	wprintw(prompt_win,"%s",str);
 	refreshPrompt();
 	printAttackPrompt();
 }
 
-void getInput(int *const run_away, int *const play) {
+static void getInput(int *const run_away, int *const play) {
 	wclear(prompt_win);
 	switch(getch()) {
 		case '1': attackEnemySelection(PLAYER,ENEMY);
@@ -622,7 +618,7 @@ void getInput(int *const run_away, int *const play) {
 	}
 }
 
-void printAttackPrompt() {
+static void printAttackPrompt() {
 	wclear(prompt_win);
 	wprintw(prompt_win,"player health is %d, attack is %d, defense is %d, food is %d\n",PLAYER->health,PLAYER->attack,PLAYER->defense,PLAYER->food);
 	wprintw(prompt_win,"\tdo you wish to\n\t\t1)attack\n\t\t2)raise defenses\n\t\t3)%s\n\t\t4)run away\n\t\t5)eat some food to recover health\n",PLAYER->special_name);
@@ -630,7 +626,7 @@ void printAttackPrompt() {
 }
 
 //if player runs away, tile is set to e, but if player returns and kills the enemy, tile is reset to original char.
-void resetTile(void) {
+static void resetTile(void) {
 	if(previous->tile_set == 'e') {
 		switch(previous->type) {
 			case 1:
@@ -645,7 +641,7 @@ void resetTile(void) {
 }
 
 //if player is alive after battle, reset stats and remove computer player from piece
-void playerAliveReset(int *const run_away, int *const ran_away){
+static void playerAliveReset(int *const run_away, int *const ran_away){
 	PLAYER->defense = PLAYER->defense_value;
 	PLAYER->defense_up = 0;
 	PLAYER->special_count = 0;
@@ -663,7 +659,7 @@ void playerAliveReset(int *const run_away, int *const ran_away){
 	}
 }
 
-void playerTurn(int *const play, int *const run_away) {
+static void playerTurn(int *const play, int *const run_away) {
 	if(PLAYER->turn == 0) {
 		printAttackPrompt();
 		getInput(run_away,play);
@@ -676,7 +672,7 @@ void playerTurn(int *const play, int *const run_away) {
 	}
 }
 
-void computerTurn(int *const play) {
+static void computerTurn(int *const play) {
 	if(ENEMY->turn == 0) {
 		computerSelection(play);
 	}
@@ -689,7 +685,7 @@ void computerTurn(int *const play) {
 }
 
 //at the start of combat, set up messages which will be displayed to player
-void setPlayerStrings(void) {
+static void setPlayerStrings(void) {
 	char str1[150],str2[150],str3[150],str4[150],str5[150],str6[150];
 	sprintf(str1,"you swing you sword and hit %s",ENEMY->name);
 	strcat(str1," doing %d damage.");
